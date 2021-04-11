@@ -38,14 +38,10 @@ def word_with_hiddens(word, guess_list):
     return ' '.join(list_with_hiddens)
 
 
-def check_if_win(word, guess_list):
-    list_with_hiddens = list(map(lambda letter: letter in guess_list, word))
+def player_wins(word):
 
-    if reduce(lambda x: x != False, list_with_hiddens):
-        return 'You WIN!'
-
-    else:
-        return 'Keep trying...'
+    if not '_' in word:
+        return True
 
 
 def run():
@@ -54,16 +50,25 @@ def run():
     my_guesses = []
 
     word_to_guess = random_word_from_txt()
+    guessing_word = word_with_hiddens(word_to_guess, my_guesses)
 
     while running:
 
+        guessing_word = word_with_hiddens(word_to_guess, my_guesses)
+
         print('¡Adivine la palabra! \n')
-        print(word_with_hiddens(word_to_guess, my_guesses)+'\n')
+        print(guessing_word+'\n')
 
         user_input = input('Ingrese una letra: ').upper()
         my_guesses.append(user_input)
 
-        print(check_if_win(word_to_guess, my_guesses) + '\n')
+        guessing_word = word_with_hiddens(word_to_guess, my_guesses)
+
+        if player_wins(guessing_word) == True:
+            print(guessing_word+'\n')
+            print('Ganaste!!!')
+            user_input = input()
+            running = False
 
         os.system('clear')
 
