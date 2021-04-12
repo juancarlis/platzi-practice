@@ -1,2 +1,2 @@
 # platzi-practice
-For some practice of the Platzi Courses
+Practice for Platzi courses
